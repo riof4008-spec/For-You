@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Birthday Surprise</title>
+
+<style>
+
+body{
+margin:0;
+font-family:sans-serif;
+background:linear-gradient(135deg,#ffd1dc,#fff5f8);
+text-align:center;
+overflow:hidden;
+}
+
+.page{
+display:none;
+height:100vh;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+}
+
+.active{
+display:flex;
+}
+
+button{
+padding:15px 30px;
+font-size:18px;
+border:none;
+border-radius:20px;
+background:#ff4f93;
+color:white;
+cursor:pointer;
+margin-top:20px;
+}
+
+.nailong{
+width:200px;
+position:relative;
+animation:walk 3s infinite alternate;
+}
+
+@keyframes walk{
+from{left:-100px;}
+to{left:100px;}
+}
+
+h1{
+color:#ff2f7a;
+}
+
+.slideshow{
+width:250px;
+height:250px;
+border-radius:20px;
+object-fit:cover;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<audio autoplay loop>
+<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3">
+</audio>
+
+<!-- PAGE 1 -->
+
+<div id="p1" class="page active">
+
+<img class="nailong" src="https://i.imgur.com/JqEuJ6t.png">
+
+<h1>Hai kamu 👀</h1>
+<p>Nailong datang bawa sesuatu...</p>
+
+<button onclick="next('p2')">
+Klik disini
+</button>
+
+</div>
+
+<!-- PAGE 2 -->
+
+<div id="p2" class="page">
+
+<h1>🐉 Tebakan Nailong</h1>
+
+<p>Hari ini ada orang spesial ulang tahun...</p>
+
+<button onclick="next('p3')">
+Siapa ya?
+</button>
+
+</div>
+
+<!-- PAGE 3 COUNTDOWN -->
+
+<div id="p3" class="page">
+
+<h1>Tunggu sebentar ⏳</h1>
+
+<h2 id="count">3</h2>
+
+</div>
+
+<!-- PAGE 4 BIRTHDAY -->
+
+<div id="p4" class="page">
+
+<h1>🎉 HAPPY BIRTHDAY 🎉</h1>
+
+<p>Hari ini hari kamu!</p>
+
+<button onclick="confetti();next('p5')">
+Lanjut
+</button>
+
+</div>
+
+<!-- PAGE 5 FOTO -->
+
+<div id="p5" class="page">
+
+<h1>Kenangan Kita 📸</h1>
+
+<img id="slide" class="slideshow" src="foto1.jpg">
+
+<button onclick="next('p6')">
+Lanjut
+</button>
+
+</div>
+
+<!-- PAGE 6 ROMANTIS -->
+
+<div id="p6" class="page">
+
+<h1>Untuk Kamu ❤️</h1>
+
+<p>
+
+Terima kasih sudah hadir di hidup aku.  
+Kamu selalu berhasil bikin hari aku lebih bahagia.
+
+Semoga di umur kamu yang baru  
+semua impian kamu tercapai.
+
+Aku harap kita bisa terus bersama  
+dan membuat lebih banyak kenangan indah.
+
+</p>
+
+<h2>Happy Birthday Sayang 💕</h2>
+
+</div>
+
+<script>
+
+function next(page){
+document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+document.getElementById(page).classList.add("active");
+}
+
+let count=3;
+
+setInterval(()=>{
+let c=document.getElementById("count");
+if(c){
+count--;
+if(count<=0){
+next("p4");
+}
+c.innerText=count;
+}
+},1000);
+
+function confetti(){
+
+for(let i=0;i<120;i++){
+
+let conf=document.createElement("div");
+
+conf.style.position="fixed";
+conf.style.width="8px";
+conf.style.height="8px";
+conf.style.background="hsl("+Math.random()*360+"deg,100%,50%)";
+conf.style.top="-10px";
+conf.style.left=Math.random()*window.innerWidth+"px";
+
+document.body.appendChild(conf);
+
+let fall=setInterval(()=>{
+
+conf.style.top=parseInt(conf.style.top)+6+"px";
+
+if(parseInt(conf.style.top)>window.innerHeight){
+conf.remove();
+clearInterval(fall);
+}
+
+},20);
+
+}
+
+}
+
+let photos=["foto1.jpg","foto2.jpg","foto3.jpg"];
+
+let i=0;
+
+setInterval(()=>{
+
+let img=document.getElementById("slide");
+
+if(img){
+
+i++;
+
+if(i>=photos.length){
+i=0;
+}
+
+img.src=photos[i];
+
+}
+
+},2000);
+
+</script>
+
+</body>
+</html>
